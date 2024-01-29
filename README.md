@@ -29,7 +29,9 @@ Dan start het seizoen.
 
 De mol heeft voorkennis. De mol weet wat er in een seizoen gaat gebeuren. En mijn model poogt de persoon met die voorkennis boven water te halen. Het doet dit o.b.v. opdrachten. Bij sommige opdrachten splitsen de spelers op in groepen én heeft een van de groepen meer invloed op de uitkomst van het spel dan de andere. Ik probeer dit voor iedere opdracht zo objectief mogelijk te bepalen. 
 
-De mol zal niet altijd in de groep met de meeste macht zitten, maar wel vaker dan een kandidaat. Over tijd komt de mol zo naar boven.
+De mol zal niet altijd in de groep met de meeste macht zitten, maar wel vaker dan een kandidaat. Over tijd komt de mol zo naarboven. 
+
+Een bijkomend voordeel van de Bayes benadering: maak je een foute interpretatie van een opdracht, dan zal de invloed van die fout over tijd verwateren. Zo kwam bij mij in 2023 Jurre in aflevering 4 naar boven i.p.v. 2 (als ik alles goed had ingeschat). 
 
 ### Voorbeeld
 
@@ -44,7 +46,7 @@ Stel dat de groep 10 spelers bevat en bij een opdracht in twee groepen van 5 spl
 
 Zoals je ziet, is de kandidaatkans voor beide groepen gelijk en gebaseerd op het totale aantal spelers min de mol (10-1=9). 
 
-Met deze opzet ontstaat een Bayes systeem dat twee correcties op molkans door kan voeren:
+Met deze opzet ontstaat een Bayes systeem dat twee correcties op de molkans door kan voeren:
 
 - **Correctie omhoog**: zit de speler <u>*wel*</u> in de molgroep, dan gaat de kans omhoog. De correctie is afhankelijk van de grootte van de molgroep (kleinere groep = grotere correctie).
 - **Correctie omlaag**: zit de speler <u>*niet*</u> in de molgroep, dan gaat de kans iets omlaag. Deze correctie is altijd gebaseerd op de grootte van de groep spelers. 
@@ -54,9 +56,9 @@ Met deze opzet ontstaat een Bayes systeem dat twee correcties op molkans door ka
 Je voedt het model met observaties. In `input_data` staat een voorbeeld van de observaties van 2024:
 
 - De eerste kolom `Kandidaat` bevat de namen van de spelers.
-- Alle volgende kolommen bevatten de observaties per opdracht. Het format is o + afvleveringnummer + opdrachtnummer. Voorbeeld: de kolom `o23` staat voor afvlering 2, opdracht 3.
+- Alle volgende kolommen bevatten de observaties per opdracht. Het format is o + afvleveringnummer + opdrachtnummer. Voorbeeld: de kolom `o23` staat voor aflevering 2, opdracht 3.
 
-Je geeft hier per kandidaat, per opdracht informatie aan:
+Je geeft hier per kandidaat, per opdracht, je observaties aan:
 
 - m = speler zat in molgroep
 - k = speler zat niet molgroep (kandidaat)
@@ -72,7 +74,7 @@ Je kan er voor kiezen om dit niet toe te passen. Gebruik in dat geval o voor ove
 
 Hieronder staat een voorbeeld:
 
-![input data voorbeeld](images/20240129 input data sample.png)
+![input data voorbeeld](/images/20240129 input data sample.png)
 
 ## 3: Analyse
 
@@ -106,7 +108,7 @@ Er zijn drie type visualisaties die je met het project kan genereren. Je vindt d
 
 ### 4.1 Algemene molkansontwikkeling
 
-Toon de molkansen per speler per aflevering met bolletjes. De speler (of spelers) met de grootste molkans in een aflvering kleurt groen. Spelers die die maximaal 20% lager zitten krijgen een groene rand. 
+Toon de molkansen per speler per aflevering met bolletjes. De speler (of spelers) met de grootste molkans in een aflevering kleurt groen. Spelers die die maximaal 20% lager zitten krijgen een groene rand. 
 
 ``````python
 plot_player_data(
@@ -117,13 +119,13 @@ plot_player_data(
 
 Voorbeeld:
 
-![voorbeeld molkansontwikkeling plot](images/20240129 sample overview.png)
+![voorbeeld molkansontwikkeling plot](/images/20240129 sample overview.png)
 
 De afbeeldingen vind je terug in de map `plots/...`
 
 ### 4.2 Slope chart van aflevering X naar Y
 
-Bekijk de molkans ontwikkelingen van aflevering X naar Y in een slopechart. Je geeft heirbij handmatig aan welke spelers je niet wil meenmen, wie de mol is (die wordt groen), en welke labels je rechts wil toevoegen.
+Bekijk de molkansontwikkelingen van aflevering X naar Y in een slopechart. Je geeft heirbij handmatig aan welke spelers je niet wil meenmen, op wie je wilt focussen (die wordt groen), en welke labels je rechts wil toevoegen.
 
 ```python
 plot_player_dev(
@@ -137,9 +139,9 @@ plot_player_dev(
 )
 ```
 
-Voorbeeld
+Voorbeeld:
 
-![molkans slope chart](images/20240129 sample slope.png)
+![molkans slope chart](/images/20240129 sample slope.png)
 
 Deze afbeeldingen vind je terug in de map `plots/slopes/...`
 
@@ -156,7 +158,7 @@ plot_result_per_episode(
 
 Voorbeeld:
 
-![molkans per aflvering](images/20240129 sample episode.png)
+![molkans per aflvering](/images/20240129 sample episode.png)
 
 Deze afbeeldingen vind je terug in de map `plots/episodes/...`
 
