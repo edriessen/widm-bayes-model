@@ -10,8 +10,6 @@ De documentatie gaat in op:
 
 Laten we erin duiken.
 
----
-
 ## 1: Theorie
 
 De stelling van Bayes gaat uit van een startgeloof (een *prior belief*). Je weet dat dit geloof niet perfect is, dus ga je dit startgeloof aanpassen o.b.v. observaties. Bij elke observatie bepaal je twee kansen:
@@ -51,8 +49,6 @@ Met deze opzet ontstaat een Bayes systeem dat twee correcties op molkans door ka
 - **Correctie omhoog**: zit de speler <u>*wel*</u> in de molgroep, dan gaat de kans omhoog. De correctie is afhankelijk van de grootte van de molgroep (kleinere groep = grotere correctie).
 - **Correctie omlaag**: zit de speler <u>*niet*</u> in de molgroep, dan gaat de kans iets omlaag. Deze correctie is altijd gebaseerd op de grootte van de groep spelers. 
 
----
-
 ## 2: Input data
 
 Je voedt het model met observaties. In `input_data` staat een voorbeeld van de observaties van 2024:
@@ -77,8 +73,6 @@ Je kan er voor kiezen om dit niet toe te passen. Gebruik in dat geval o voor ove
 Hieronder staat een voorbeeld:
 
 ![input data voorbeeld](images/20240129 input data sample.png)
-
----
 
 ## 3: Analyse
 
@@ -105,8 +99,6 @@ player_data = get_season_data_by_max_episode(
 new_df = pd.DataFrame(player_data)
 new_df.transpose().to_excel('output_data/2024_codeerik_results.xlsx')
 ``````
-
----
 
 ## 4: Visualisaties
 
@@ -173,8 +165,6 @@ Deze afbeeldingen vind je terug in de map `plots/episodes/...`
 ### Vragen, suggesties, ideeën?
 
 Leuk! [Stel ze hier](https://www.codeerik.nl/contact). 
-
----
 
 ### Met dank aan...
 
