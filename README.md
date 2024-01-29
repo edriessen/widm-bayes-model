@@ -56,7 +56,7 @@ Met deze opzet ontstaat een Bayes systeem dat twee correcties op de molkans door
 Je voedt het model met observaties. In `input_data` staat een voorbeeld van de observaties van 2024:
 
 - De eerste kolom `Kandidaat` bevat de namen van de spelers.
-- Alle volgende kolommen bevatten de observaties per opdracht. Het format is o + afvleveringnummer + opdrachtnummer. Voorbeeld: de kolom `o23` staat voor aflevering 2, opdracht 3.
+- Alle volgende kolommen bevatten de observaties per opdracht. Het format is o + afleveringsnummer + opdrachtnummer. Voorbeeld: de kolom `o23` staat voor aflevering 2, opdracht 3.
 
 Je geeft hier per kandidaat, per opdracht, je observaties aan:
 
@@ -147,7 +147,7 @@ Deze afbeeldingen vind je terug in de map `plots/slopes/...`
 
 ### 4.3 Kansen per aflevering
 
-Plot de resultaten per aflvering als een aparte visualisatie met bolletjes. Leuk om bij meerdere afvleringen een geanimeerde GIF van te maken. De parameter `year` wordt hier enkel gebruikt om de afbeeldingen te voorzien van een jaartal. 
+Plot de resultaten per aflevering als een aparte visualisatie met bolletjes. Leuk om bij meerdere afleveringen een geanimeerde GIF van te maken. De parameter `year` wordt hier enkel gebruikt om de afbeeldingen te voorzien van een jaartal. 
 
 `````python
 plot_result_per_episode(
