@@ -173,7 +173,7 @@ Leuk! [Stel ze hier](https://www.codeerik.nl/contact).
 Het is leuk en leerzaam om een stelling als die van Bayes te leren kennen en gebruiken. Maar dat doe je niet alleen. 
 
 - *The Signal and the Noise* van *Nate Silver*: dit boek legt op een begrijpelijk manier uit waarom veel modellen niet werken, maar sommige wel. Het bevat de uitleg van Bayes die mij triggerde om dit model te maken.
-- [Nino Weerman, Senior Data Conultant](https://www.linkedin.com/in/ninoweerman/): Nino was zo aardig om mijn model te reviewen. Mede daardoor is het nu een open repo. 
+- [Nino Weerman, Senior Data Consultant](https://www.linkedin.com/in/ninoweerman/): Nino was zo aardig om mijn model te reviewen. Mede daardoor is het nu een open repo. 
 - [Measurecamp Amsterdam](https://amsterdam.measurecamp.org/): de leukste *unconference* over analytics, waar ik in 2022 en 2023 met vakgenoten heb kunnen sparren over mijn model. 
 
 
