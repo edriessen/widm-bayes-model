@@ -74,7 +74,7 @@ Je kan er voor kiezen om dit niet toe te passen. Gebruik in dat geval o voor ove
 
 Hieronder staat een voorbeeld:
 
-![input data voorbeeld](/images/20240129 input data sample.png)
+![input data voorbeeld](images/20240129-inputdata-sample.png)
 
 ## 3: Analyse
 
@@ -119,7 +119,7 @@ plot_player_data(
 
 Voorbeeld:
 
-![voorbeeld molkansontwikkeling plot](/images/20240129 sample overview.png)
+<img src="images/20240129-sample-overview.png" alt="voorbeeld molkansontwikkeling plot" style="zoom:72%;" />
 
 De afbeeldingen vind je terug in de map `plots/...`
 
@@ -141,7 +141,7 @@ plot_player_dev(
 
 Voorbeeld:
 
-![molkans slope chart](/images/20240129 sample slope.png)
+![molkans slope chart](images/20240129-sample-slope.png)
 
 Deze afbeeldingen vind je terug in de map `plots/slopes/...`
 
@@ -158,7 +158,7 @@ plot_result_per_episode(
 
 Voorbeeld:
 
-![molkans per aflvering](/images/20240129 sample episode.png)
+![molkans per aflvering](images/20240129-sample-episode.png)
 
 Deze afbeeldingen vind je terug in de map `plots/episodes/...`
 
