@@ -1,7 +1,7 @@
 # Wie is de Mol? Bayes Model (codeerik)
-Dit "Wie is de Mol?" model is gebaseerd op [de stelling van Bayes](https://nl.wikipedia.org/wiki/Theorema_van_Bayes). Het model past deze stelling toe op observaties van opdrachten. Per opdracht die meetelt in het model, past het model de molkans van een speler aan.
+Dit "Wie is de Mol?" model is gebaseerd op [de stelling van Bayes](https://nl.wikipedia.org/wiki/Theorema_van_Bayes). Het model past deze stelling toe op observaties van opdrachten. Per opdracht die meetelt in het model, past het model de molkans van de spelers aan.
 
-De documentatie gaat in op:
+Deze documentatie gaat in op:
 
 1. Theorie
 2. Input data
@@ -15,11 +15,11 @@ Laten we erin duiken.
 De stelling van Bayes gaat uit van een startgeloof (een *prior belief*). Je weet dat dit geloof niet perfect is, dus ga je dit startgeloof aanpassen o.b.v. observaties. Bij elke observatie bepaal je twee kansen:
 
 - De kans dat het je geloof bevestigt.
-- De kans dat het je geloof niet bevestigt. 
+- De kans dat het je geloof ontkracht. 
 
-Is de eerste kans groter dan de tweede, dan gaat de kans die je had omhoog. Is de tweede kans groter? Dan volgt een correctie omlaag. 
+Is de eerste kans groter dan de tweede, dan gaat de kans die je had (je startgeloof) omhoog. Is de tweede kans groter? Dan volgt een correctie omlaag. 
 
-Als we de mol willen vinden, onderzoeken we de vraag: wie is de mol? Het geloof dat we onderzoeken gaat dus over de molkans. Een deel van de opdrachten vertelt ons iets over die molkans. Hoe je die informatie kan omzetten tot informatie voor het model, lees je hieronder.
+Als we de mol willen vinden, onderzoeken we de vraag: wie is de mol? Het startgeloof voor dit onderzoek is daarmee de molkans. Een deel van de opdrachten vertelt ons iets over die molkans. Hoe je die informatie kan omzetten tot informatie voor het model, lees je hieronder.
 
 ### Molkansen
 
@@ -29,7 +29,7 @@ Dan start het seizoen.
 
 De mol heeft voorkennis. De mol weet wat er in een seizoen gaat gebeuren. En mijn model poogt de persoon met die voorkennis boven water te halen. Het doet dit o.b.v. opdrachten. Bij sommige opdrachten splitsen de spelers op in groepen én heeft een van de groepen meer invloed op de uitkomst van het spel dan de andere. Ik probeer dit voor iedere opdracht zo objectief mogelijk te bepalen. 
 
-De mol zal niet altijd in de groep met de meeste macht zitten, maar wel vaker dan een kandidaat. Over tijd komt de mol zo naarboven. 
+De mol zal niet altijd in de groep met de meeste macht zitten, maar wel vaker dan een kandidaat. Over tijd komt de mol zo naar boven. 
 
 Een bijkomend voordeel van de Bayes benadering: maak je een foute interpretatie van een opdracht, dan zal de invloed van die fout over tijd verwateren. Zo kwam bij mij in 2023 Jurre in aflevering 4 naar boven i.p.v. 2 (als ik alles goed had ingeschat). 
 
@@ -44,7 +44,7 @@ Stel dat de groep 10 spelers bevat en bij een opdracht in twee groepen van 5 spl
   - Molkans: 1/10 
   - Kandidaatkans: 1/9
 
-Zoals je ziet, is de kandidaatkans voor beide groepen gelijk en gebaseerd op het totale aantal spelers min de mol (10-1=9). 
+Zoals je ziet, is de kandidaatkans voor beide groepen gelijk en gebaseerd op het totale aantal spelers min de mol (10-1=9). De molkans varieert o.b.v. de grootte van de molgroep of de grootte van de totale groep.
 
 Met deze opzet ontstaat een Bayes systeem dat twee correcties op de molkans door kan voeren:
 
@@ -56,7 +56,7 @@ Met deze opzet ontstaat een Bayes systeem dat twee correcties op de molkans door
 Je voedt het model met observaties. In `input_data` staat een voorbeeld van de observaties van 2024:
 
 - De eerste kolom `Kandidaat` bevat de namen van de spelers.
-- Alle volgende kolommen bevatten de observaties per opdracht. Het format is o + afleveringsnummer + opdrachtnummer. Voorbeeld: de kolom `o23` staat voor aflevering 2, opdracht 3.
+- Alle volgende kolommen bevatten de observaties per opdracht. Het format is o + afleveringsnummer + opdrachtnummer. Voorbeeld: de kolom `o23` staat voor aflevering 2, opdracht 3. *Let op: houd exact dit format aan, omdat het model hier de afleveringen en opdrachten op baseert.*
 
 Je geeft hier per kandidaat, per opdracht, je observaties aan:
 
@@ -65,14 +65,14 @@ Je geeft hier per kandidaat, per opdracht, je observaties aan:
 - o = opdracht overslaan
 - x = persoon is afgevallen
 
-Je kan de molkans ook andersom corrigeren. Dit heb ik vorig jaar toevoegd toen een groep spelers een rood scherm had wat niet getoond werd:
+Je kan de molkans ook andersom corrigeren. Dit heb ik vorig jaar toegevoegd toen één speler binnen een groep spelers zeker een rood scherm had wat niet getoond werd:
 
-- a = spelers zat in de afvalgroep, de groep waar zeker een rood scherm tussen zat
+- a = speler zat in de afvalgroep, de groep waar zeker een rood scherm tussen zat
 - k = speler zat niet in de afvalgroep
 
-Je kan er voor kiezen om dit niet toe te passen. Gebruik in dat geval o voor overslaan.
+In dit geval vindt een correctie omlaag plaats als de speler in de `a` groep zat. Je kan er voor kiezen om dit niet toe te passen. Gebruik in dat geval `o` voor overslaan.
 
-Hieronder staat een voorbeeld:
+Hieronder staat een voorbeeld van seizoen 2024, bijgewerkt t/m aflevering 4. 
 
 ![input data voorbeeld](images/20240129-inputdata-sample.png)
 
@@ -108,7 +108,7 @@ Er zijn drie type visualisaties die je met het project kan genereren. Je vindt d
 
 ### 4.1 Algemene molkansontwikkeling
 
-Toon de molkansen per speler per aflevering met bolletjes. De speler (of spelers) met de grootste molkans in een aflevering kleurt groen. Spelers die die maximaal 20% lager zitten krijgen een groene rand. 
+Toon de molkansen per speler per aflevering met bolletjes. De speler (of spelers) met de grootste molkans in een aflevering kleurt groen. Spelers die die maximaal 20% lager zitten krijgen een groene rand (zie Kees en Tooske in aflevering 2).
 
 ``````python
 plot_player_data(
