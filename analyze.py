@@ -12,6 +12,13 @@ def set_player_data_from_df(df):
 
 
 def get_game_int_and_episode_int(game_label):
+    if '-' in game_label:
+        game_info = game_label.split('-')
+        episode_int = int(game_info[1])
+        game_int = int(game_info[2])
+
+        return game_int, episode_int
+
     if 'o' not in game_label:
         # get ints from legacy format
         game_int = int(game_label.replace('nr', ''))
@@ -59,9 +66,9 @@ def get_season_data_by_max_episode(season_data, max_episode, debug_player=''):
                     player_dict[player][episode_label] = player_dict[player]['total_chance']
             continue
 
-        game_players = len(df.query(game + ' != "x"'))
-        mole_group_size = len(df.query(game + ' == "m"'))
-        loser_group_size = len(df.query(game + ' == "a"'))
+        game_players = len(df[df[game] != 'x'])
+        mole_group_size = len(df[df[game] == 'm'])
+        loser_group_size = len(df[df[game] == 'a'])
 
         for player in players:
             player_value = df.iloc[df.index.get_loc(player), df.columns.get_loc(game)]
