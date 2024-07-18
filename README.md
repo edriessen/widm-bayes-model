@@ -46,7 +46,7 @@ Stel dat de groep 10 spelers bevat en bij een opdracht in twee groepen van 5 spl
 
 Zoals je ziet, is de kandidaatkans voor beide groepen gelijk en gebaseerd op het totale aantal spelers min de mol (10-1=9). De molkans varieert o.b.v. de grootte van de molgroep of de grootte van de totale groep.
 
-Met deze opzet ontstaat een Bayes systeem dat twee correcties op de molkans door kan voeren:
+Met deze opzet ontstaat het Mol-Driessen-Bayes (😉) systeem dat twee correcties op de molkans door kan voeren:
 
 - **Correctie omhoog**: zit de speler <u>*wel*</u> in de molgroep, dan gaat de kans omhoog. De correctie is afhankelijk van de grootte van de molgroep (kleinere groep = grotere correctie).
 - **Correctie omlaag**: zit de speler <u>*niet*</u> in de molgroep, dan gaat de kans iets omlaag. Deze correctie is altijd gebaseerd op de grootte van de groep spelers. 
