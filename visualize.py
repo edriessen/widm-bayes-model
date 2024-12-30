@@ -3,6 +3,7 @@ import pandas as pd
 from analyze import get_max_data_per_episode_from_player_data
 
 mol_color = '#39870c'
+font_size = 14
 
 
 def plot_player_data(
@@ -11,41 +12,112 @@ def plot_player_data(
 ):
     episode_max = get_max_data_per_episode_from_player_data(player_data)
 
-    plot_height = len(player_data)
-    # correct with -1 to remove 'total chance'
-    plot_width = len(player_data[list(player_data.keys())[0]]) - 1
+    fig, ax = plt.subplots(
+        sharex=True,
+        sharey=True,
+        figsize=(11,11)
+    )
+    fig.subplots_adjust(left=.2, right=.9, top=.9, bottom=.05)
 
-    fig, axs = plt.subplots(plot_height, plot_width, sharex=True, sharey=True, figsize=(12,9))
-    fig.subplots_adjust(wspace=-.2, hspace=0.05)
-    font_size = 10
     for index, value in enumerate(player_data.items()):
         player = value[0]
         player_values= value[1]
+
+        ax.text(
+            x=.5,
+            y=index,
+            s=player,
+            fontsize=font_size,
+            va='center',
+            ha='right',
+        )
+
+
         for index2, value2 in enumerate(player_values.items()):
             episode = value2[0]
             episode_score = value2[1]
+
+
             if episode != 'total_chance':
-                ax = axs[index, index2 -1 ]
-                color = '#aaaaaa'
-                edge_color = 'none'
-                if episode_score == episode_max[episode]:
-                    color = mol_color
-                    edge_color = mol_color
-                if episode_score > episode_max[episode] * .8:
-                    edge_color = mol_color
-                ax.scatter(1, 1, s=episode_score*500, c=color, edgecolor=edge_color, lw=2)
+                # ax = axs[index, index2 -1 ]
+                episode_int = int(episode.split(' ')[1])
                 if index == 0:
-                    ax.set_title(episode, fontsize=font_size)
-                if index2 - 1 == 0:
-                    ax.set_ylabel('\n'+player, rotation=0, fontsize=font_size)
+                    ax.text(
+                        x=episode_int,
+                        y=-1.5,
+                        s=episode,
+                        ha='center',
+                        va='bottom',
+                        fontsize=font_size,
+                    )
 
-                for spine in ['left', 'right', 'top']:
+                color = '#aaaaaa'
+                edge_color = color
+                episode_max_score = episode_max[episode]
+
+                if episode_score == episode_max_score:
+                    color = mol_color
+                    edge_color = 'black'
+
+                episode_max_score = episode_max[episode]
+                episode_score_rel = episode_score/episode_max_score
+
+                scatter_r = 1500
+
+                lw_val = .5
+                ax.scatter(episode_int, index, s=episode_score*scatter_r, c=color, edgecolor=edge_color, lw=lw_val, zorder=3)
+
+                if episode_score_rel > 0:
+                    ax.scatter(episode_int, index, s=episode_max_score*scatter_r, c='white', edgecolor='black', lw=lw_val, zorder=2)
+
+                ax.plot([episode_int, episode_int], [-1, len(player_data)], lw=lw_val, color='black', zorder=1, marker='_')
+
+                for spine in ['left', 'bottom', 'top', 'right']:
                     ax.spines[spine].set_visible(False)
-
-                ax.spines['bottom'].set_color('#eeeeee')
 
                 ax.get_xaxis().set_visible(False)
                 ax.set_yticks([])
+
+    ax.set_ylim(len(player)+3, -2)
+
+    for index, label in enumerate([
+        'grootste molkans in afl.',
+        'speler heeft grootste molkans in afl.',
+        'speler heeft niet de grootste molkans in afl.']
+    ):
+        ax.text(
+            x=1.25,
+            y=len(player_data)+1+(.5*index),
+            s=label,
+            va='center',
+            ha='left',
+            fontsize=12
+        )
+        # scatter
+        fill_color = 'white'
+        edge_color = 'black'
+
+        if index == 1:
+            fill_color = mol_color
+
+        if index == 2:
+            fill_color = '#aaaaaa'
+
+        ax.scatter(
+            [1],
+            [len(player_data)+1+(.5*index)],
+            color=fill_color,
+            edgecolor=edge_color,
+            s=125,
+        )
+    # ax.legend(
+    #     ncol=1,
+    #     loc=2,
+    #     bbox_to_anchor=(-.1, -.075),
+    #     fontsize=font_size,
+    #     frameon=False
+    # )
+
 
     if file_name:
         plt.savefig(f'{file_name}')
