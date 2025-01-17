@@ -1,22 +1,29 @@
 import matplotlib.pyplot as plt
 import pandas as pd
 from analyze import get_max_data_per_episode_from_player_data
+from _utils import cmyk_to_rgb
 
 mol_color = '#39870c'
+mol_color = cmyk_to_rgb(75, 21, 73, 0) # green
+gray_color = cmyk_to_rgb(28, 18, 20, 0) # neutral gray
+bg_color = cmyk_to_rgb(2, 7, 44, 0) # naplesyellow
 font_size = 14
 
 
 def plot_player_data(
         player_data,
-        file_name=''
+        file_name='',
+        max_episode=1,
 ):
     episode_max = get_max_data_per_episode_from_player_data(player_data)
 
     fig, ax = plt.subplots(
         sharex=True,
         sharey=True,
-        figsize=(11,11)
+        figsize=(11,11),
+        # facecolor=bg_color,
     )
+    ax.set_facecolor('none')
     fig.subplots_adjust(left=.2, right=.9, top=.9, bottom=.05)
 
     for index, value in enumerate(player_data.items()):
@@ -51,26 +58,47 @@ def plot_player_data(
                         fontsize=font_size,
                     )
 
-                color = '#aaaaaa'
-                edge_color = color
-                episode_max_score = episode_max[episode]
+                color = gray_color
 
-                if episode_score == episode_max_score:
-                    color = mol_color
-                    edge_color = 'black'
+                if episode_int <= max_episode:
+                    episode_max_score = episode_max[episode]
 
-                episode_max_score = episode_max[episode]
-                episode_score_rel = episode_score/episode_max_score
+                    if episode_score == episode_max_score:
+                        color = mol_color
 
-                scatter_r = 1500
+                    episode_max_score = episode_max[episode]
+                    episode_score_rel = episode_score/episode_max_score
 
-                lw_val = .5
-                ax.scatter(episode_int, index, s=episode_score*scatter_r, c=color, edgecolor=edge_color, lw=lw_val, zorder=3)
+                    scatter_r = 1500
 
-                if episode_score_rel > 0:
-                    ax.scatter(episode_int, index, s=episode_max_score*scatter_r, c='white', edgecolor='black', lw=lw_val, zorder=2)
+                    lw_val = 1
+                    ax.scatter(
+                        episode_int, index,
+                        s=episode_score*scatter_r,
+                        color=color,
+                        edgecolor='black',
+                        lw=lw_val,
+                        zorder=5
+                    )
 
-                ax.plot([episode_int, episode_int], [-1, len(player_data)], lw=lw_val, color='black', zorder=1, marker='_')
+
+                    if episode_score_rel > 0:
+                        ax.scatter(
+                            episode_int, index,
+                            s=episode_max_score*scatter_r,
+                            color='white',
+                            edgecolor='black',
+                            lw=lw_val,
+                            zorder=2
+                        )
+
+                ax.plot(
+                    [episode_int, episode_int],
+                    [-1, len(player_data)],
+                    lw=lw_val, color='black', zorder=1,
+                    # marker='_',
+                    solid_capstyle='round',
+                )
 
                 for spine in ['left', 'bottom', 'top', 'right']:
                     ax.spines[spine].set_visible(False)
@@ -78,7 +106,7 @@ def plot_player_data(
                 ax.get_xaxis().set_visible(False)
                 ax.set_yticks([])
 
-    ax.set_ylim(len(player)+3, -2)
+    ax.set_ylim(len(player_data)+3, -2)
 
     for index, label in enumerate([
         'grootste molkans in afl.',
@@ -120,7 +148,7 @@ def plot_player_data(
 
 
     if file_name:
-        plt.savefig(f'{file_name}')
+        plt.savefig(f'{file_name}{str(max_episode)}.png')
     else:
         plt.show()
 
