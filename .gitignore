@@ -1,7 +1,7 @@
 # codeerik
 .idea/*
 plots/
-input_data/
+input_data_courses/
 plots/*.png
 plots/slopes/*.png
 plots/episodes/*.png

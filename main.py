@@ -1,47 +1,22 @@
 import pandas as pd
-from analyze import get_season_data_by_max_episode
-from visualize import (
-    plot_player_data,
-    plot_player_dev,
-    plot_result_per_episode
-)
+from analyze import WidmBayes
+from visualize import plot_player_data
 
-###
-# analyse
-###
 df_observations = pd.read_excel(
-    'input_data/2024 widm observations.xlsx',
+    f'input_data/2025 widm observations.xlsx',
     index_col='Kandidaat'
 )
 
-player_data = get_season_data_by_max_episode(
-    season_data=df_observations,
-    max_episode=9,
-    # debug_player='Kees',
-)
+widm_model = WidmBayes(observations=df_observations)
+widm_model.run(max_episode=10)
 
-new_df = pd.DataFrame(player_data)
-new_df.transpose().to_excel('output_data/2024_codeerik_results.xlsx')
+# save output if wanted
+new_df = pd.DataFrame(widm_model.player_dict)
+new_df.transpose().to_excel('output_data/2025_codeerik_results.xlsx')
 
-###
-# visualize
-###
 plot_player_data(
-    player_data=player_data,
-    file_name='plots/2024_results_ep4.png',
+    player_data=widm_model.player_dict,
+    max_episode=3,
+    file_name=f'plots/2025_new_plot_REFACTOR_ep',
 )
 
-plot_player_dev(
-    player_data=player_data,
-    start_ep=3,
-    stop_ep=4,
-    focus_player='Kees',
-    label_players=['Kees', 'Rian', 'Fons'],
-    exclude_players=['Babs (x?)', 'Jip (x?)', 'Justin (x?)'],
-    file_name='plots/slopes/2024_ep_2_to_3.png'
-)
-
-plot_result_per_episode(
-    year=2024,
-    player_data=player_data
-)

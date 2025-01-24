@@ -1,7 +1,9 @@
 import matplotlib.pyplot as plt
 import pandas as pd
-from analyze import get_max_data_per_episode_from_player_data
-from _utils import cmyk_to_rgb
+from _utils import (
+    cmyk_to_rgb,
+    get_max_data_per_episode_from_player_data,
+)
 
 mol_color = '#39870c'
 mol_color = cmyk_to_rgb(75, 21, 73, 0) # green
@@ -80,7 +82,6 @@ def plot_player_data(
                         lw=lw_val,
                         zorder=5
                     )
-
 
                     if episode_score_rel > 0:
                         ax.scatter(
