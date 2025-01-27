@@ -83,15 +83,15 @@ def plot_player_data(
                         zorder=5
                     )
 
-                    if episode_score_rel > 0:
-                        ax.scatter(
-                            episode_int, index,
-                            s=episode_max_score*scatter_r,
-                            color='white',
-                            edgecolor='black',
-                            lw=lw_val,
-                            zorder=2
-                        )
+                    # if episode_score_rel > 0:
+                    #     ax.scatter(
+                    #         episode_int, index,
+                    #         s=episode_max_score*scatter_r,
+                    #         color='white',
+                    #         edgecolor='black',
+                    #         lw=lw_val,
+                    #         zorder=2,
+                    #     )
 
                 ax.plot(
                     [episode_int, episode_int],
@@ -110,9 +110,8 @@ def plot_player_data(
     ax.set_ylim(len(player_data)+3, -2)
 
     for index, label in enumerate([
-        'grootste molkans in afl.',
         'speler heeft grootste molkans in afl.',
-        'speler heeft niet de grootste molkans in afl.']
+    ]
     ):
         ax.text(
             x=1.25,
@@ -123,14 +122,14 @@ def plot_player_data(
             fontsize=12
         )
         # scatter
-        fill_color = 'white'
+        fill_color = mol_color
         edge_color = 'black'
 
         if index == 1:
-            fill_color = mol_color
+            fill_color = '#aaa'
 
         if index == 2:
-            fill_color = '#aaaaaa'
+            fill_color = '#fff'
 
         ax.scatter(
             [1],
@@ -139,13 +138,7 @@ def plot_player_data(
             edgecolor=edge_color,
             s=125,
         )
-    # ax.legend(
-    #     ncol=1,
-    #     loc=2,
-    #     bbox_to_anchor=(-.1, -.075),
-    #     fontsize=font_size,
-    #     frameon=False
-    # )
+
 
 
     if file_name:

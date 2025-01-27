@@ -16,7 +16,7 @@ new_df.transpose().to_excel('output_data/2025_codeerik_results.xlsx')
 
 plot_player_data(
     player_data=widm_model.player_dict,
-    max_episode=3,
-    file_name=f'plots/2025_new_plot_REFACTOR_ep',
+    max_episode=4,
+    file_name=f'plots/2025_new_plot_ep',
 )
 
