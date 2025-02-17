@@ -68,9 +68,6 @@ def plot_player_data(
                     if episode_score == episode_max_score:
                         color = mol_color
 
-                    episode_max_score = episode_max[episode]
-                    episode_score_rel = episode_score/episode_max_score
-
                     scatter_r = 1500
 
                     lw_val = 1
